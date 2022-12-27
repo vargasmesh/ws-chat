@@ -8,7 +8,7 @@ defmodule WsChat.Application do
 
     children = [
       {Plug.Cowboy,
-       scheme: :http, plug: WsChat.Router, options: [port: port, dispatch: dispatch()]}
+       scheme: :http, plug: WsChat.Web.Router, options: [port: port, dispatch: dispatch()]}
     ]
 
     Logger.info("Listening on: http://127.0.0.1:#{port}")
@@ -21,8 +21,8 @@ defmodule WsChat.Application do
     [
       {:_,
        [
-         {"/ws", WsChat.Websocket, []},
-         {:_, Plug.Cowboy.Handler, {WsChat.Router, []}}
+         {"/ws", WsChat.Web.Websocket, []},
+         {:_, Plug.Cowboy.Handler, {WsChat.Web.Router, []}}
        ]}
     ]
   end

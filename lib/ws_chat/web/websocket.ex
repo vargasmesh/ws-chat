@@ -1,4 +1,4 @@
-defmodule WsChat.Websocket do
+defmodule WsChat.Web.Websocket do
   @behaviour :cowboy_websocket
   require Logger
 
