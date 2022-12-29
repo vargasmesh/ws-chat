@@ -14,7 +14,10 @@ defmodule WsChat.Web.Router do
     send_resp(conn, 200, "Hello World!\n")
   end
 
-  forward("/auth", to: WsChat.Web.Router.Auth)
+  forward("/auth",
+    to: WsChat.Web.Router.Auth,
+    assigns: %{auth_mod: WsChat.Core.Auth}
+  )
 
   match _ do
     send_resp(conn, 404, "Not found")

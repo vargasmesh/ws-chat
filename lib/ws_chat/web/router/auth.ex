@@ -1,15 +1,22 @@
 defmodule WsChat.Web.Router.Auth do
   use Plug.Router
 
-  plug(:match)
-  plug(:dispatch)
+  plug :match
+  plug :dispatch
 
-  post "/" do
-    with %{"email" => email, "password" => password} <- conn.body_params do
-      IO.puts("Email is #{email} and password is: #{password}")
-      send_resp(conn, 200, "Success!")
+  post "/signup" do
+    with %{"email" => email, "password" => password} <- conn.body_params,
+         {:ok, user} <- conn.assigns.auth_mod.signup(%{email: email, password: password}) do
+      send_resp(conn, 200, Jason.encode!(%{id: user.external_id}))
     else
-      _ -> send_resp(conn, 400, Jason.encode!(%{error: "invalid payload"}))
+      {:error, :email_already_registered} ->
+        send_resp(conn, 400, Jason.encode!(%{error: "this email has been taken"}))
+
+      {:error, _} ->
+        send_resp(conn, 400, Jason.encode!(%{error: "user could not be created"}))
+
+      _ ->
+        send_resp(conn, 400, Jason.encode!(%{error: "invalid payload"}))
     end
   end
 end
