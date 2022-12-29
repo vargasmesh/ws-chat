@@ -1,7 +1,12 @@
 defmodule WsChat.Datasource.UserRepository do
   @behaviour WsChat.Core.UserRepository
   @type credentials :: %{email: String.t(), password: String.t()}
-  @type user :: %{id: String.t(), external_id: String.t(), email: String.t()}
+  @type user :: %{
+          id: String.t(),
+          external_id: String.t(),
+          email: String.t(),
+          password: String.t()
+        }
 
   import Ecto.Query
 
@@ -24,8 +29,12 @@ defmodule WsChat.Datasource.UserRepository do
     user = User.changeset(%User{}, %{email: email, password_hash: password})
 
     case Repo.insert(user) do
-      {:ok, user} -> {:ok, %{id: user.id, external_id: user.external_id, email: user.email}}
-      {:error, _} -> {:error, :could_not_create}
+      {:ok, user} ->
+        {:ok,
+         %{id: user.id, external_id: user.external_id, email: user.email, password: password}}
+
+      {:error, _} ->
+        {:error, :could_not_create}
     end
   end
 end
