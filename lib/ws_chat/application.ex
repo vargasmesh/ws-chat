@@ -7,6 +7,7 @@ defmodule WsChat.Application do
     port = Application.fetch_env!(:ws_chat, :server_port)
 
     children = [
+      WsChat.Repo,
       {Plug.Cowboy,
        scheme: :http, plug: WsChat.Web.Router, options: [port: port, dispatch: dispatch()]}
     ]
