@@ -24,7 +24,8 @@ defmodule WsChat.MixProject do
     [
       {:plug_cowboy, "~> 2.0"},
       {:jason, "~> 1.4"},
-      {:ecto_sqlite3, "~> 0.9.1"}
+      {:ecto_sqlite3, "~> 0.9.1"},
+      {:bcrypt_elixir, "~> 3.0"}
     ]
   end
 end
