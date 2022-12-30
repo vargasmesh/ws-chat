@@ -9,3 +9,5 @@ config :bcrypt_elixir, log_rounds: 13
 
 config :ws_chat,
   user_repository: WsChat.Datasource.UserRepository
+
+import_config "#{config_env()}.exs"
