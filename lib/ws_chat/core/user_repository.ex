@@ -9,4 +9,5 @@ defmodule WsChat.Core.UserRepository do
 
   @callback is_email_available?(String.t()) :: boolean()
   @callback create(credentials) :: {:ok, user()} | {:error, :could_not_create}
+  @callback get_by_email(String.t()) :: user()
 end

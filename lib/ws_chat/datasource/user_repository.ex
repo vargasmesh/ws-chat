@@ -37,4 +37,19 @@ defmodule WsChat.Datasource.UserRepository do
         {:error, :could_not_create}
     end
   end
+
+  def get_by_email(email) do
+    case Repo.get_by(User, email: email) do
+      nil ->
+        nil
+
+      user ->
+        %{
+          id: user.id,
+          external_id: user.external_id,
+          email: user.email,
+          password: user.password_hash
+        }
+    end
+  end
 end
