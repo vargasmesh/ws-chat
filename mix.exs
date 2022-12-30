@@ -7,6 +7,7 @@ defmodule WsChat.MixProject do
       version: "0.1.0",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
       deps: deps()
     ]
   end
@@ -19,13 +20,20 @@ defmodule WsChat.MixProject do
     ]
   end
 
+  defp aliases do
+    [
+      test: ["ecto.create --quiet", "ecto.migrate", "test --no-start"]
+    ]
+  end
+
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
       {:plug_cowboy, "~> 2.0"},
       {:jason, "~> 1.4"},
       {:ecto_sqlite3, "~> 0.9.1"},
-      {:bcrypt_elixir, "~> 3.0"}
+      {:bcrypt_elixir, "~> 3.0"},
+      {:joken, "~> 2.5"}
     ]
   end
 end

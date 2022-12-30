@@ -26,3 +26,5 @@ ws_chat-*.tar
 /tmp/
 
 .DS_Store
+.env
+.envrc
