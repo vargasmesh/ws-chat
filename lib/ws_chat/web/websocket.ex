@@ -26,4 +26,8 @@ defmodule WsChat.Web.Websocket do
   def websocket_info(_info, state) do
     {:ok, state}
   end
+
+  def terminate(_reason, _req, %{user_session: user_session}) do
+    DynamicSupervisor.terminate_child(UserSupervisor, user_session)
+  end
 end
