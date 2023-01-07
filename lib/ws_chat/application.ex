@@ -9,7 +9,8 @@ defmodule WsChat.Application do
     children = [
       WsChat.Repo,
       {Plug.Cowboy,
-       scheme: :http, plug: WsChat.Web.Router, options: [port: port, dispatch: dispatch()]}
+       scheme: :http, plug: WsChat.Web.Router, options: [port: port, dispatch: dispatch()]},
+      {DynamicSupervisor, strategy: :one_for_one, name: WsChat.UserSupervisor}
     ]
 
     Logger.info("Listening on: http://127.0.0.1:#{port}")
