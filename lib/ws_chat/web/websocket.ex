@@ -16,7 +16,7 @@ defmodule WsChat.Web.Websocket do
   def websocket_handle({:text, message}, state) do
     Logger.debug("Received: #{message}")
     GenServer.cast(state.user_session, {:push})
-    {:reply, {:text, "Hello World!"}, state}
+    {:ok, state}
   end
 
   def websocket_info({:push, message}, state) do
