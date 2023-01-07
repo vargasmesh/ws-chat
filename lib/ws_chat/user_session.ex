@@ -1,5 +1,5 @@
 defmodule WsChat.UserSession do
-  use GenServer
+  use GenServer, restart: :temporary
 
   def init(%{user_id: user_id, ws_pid: ws_pid}) do
     {:ok, %{user_id: user_id, ws_pid: ws_pid}}
@@ -7,6 +7,10 @@ defmodule WsChat.UserSession do
 
   def start_link(%{user_id: user_id, ws_pid: ws_pid}) do
     GenServer.start_link(__MODULE__, %{user_id: user_id, ws_pid: ws_pid})
+  end
+
+  def handle_cast(:stop, state) do
+    {:stop, :normal, state}
   end
 
   def handle_cast({:push}, state) do

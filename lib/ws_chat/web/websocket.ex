@@ -28,6 +28,7 @@ defmodule WsChat.Web.Websocket do
   end
 
   def terminate(_reason, _req, %{user_session: user_session}) do
-    DynamicSupervisor.terminate_child(UserSupervisor, user_session)
+    # DynamicSupervisor.terminate_child(UserSupervisor, user_session)
+    GenServer.cast(user_session, :stop)
   end
 end
